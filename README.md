@@ -1,4 +1,4 @@
-# imghash
+# imghash [![Build Status](https://secure.travis-ci.org/pwlmaciejewski/imghash.png?branch=master)](http://travis-ci.org/pwlmaciejewski/imghash)
 Promise-based image perceptual hash calculation for node.
 
 ## Installation
