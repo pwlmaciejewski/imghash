@@ -1,0 +1,26 @@
+{
+  "name": "imghash",
+  "version": "0.0.1",
+  "description": "Image perceptual hash calculation for node",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pwlmaciejewski/imghash.git"
+  },
+  "keywords": [
+    "perseptual",
+    "image",
+    "hash",
+    "phash",
+    "imgseek"
+  ],
+  "author": "Paweł Maciejewski <fragphace@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pwlmaciejewski/imghash/issues"
+  },
+  "homepage": "https://github.com/pwlmaciejewski/imghash#readme"
+}
