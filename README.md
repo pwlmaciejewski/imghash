@@ -69,3 +69,10 @@ Returns: hex string, eg. `1000100010000010`.
 Parameters:
 
 * `s` - hex hash string eg. `f884c4d8d1193c07`
+ 
+## Further reading
+
+`imghash` takes advantage of block mean value based hashing method:
+
+* [http://stackoverflow.com/questions/14377854/block-mean-value-hashing-method](http://stackoverflow.com/questions/14377854/block-mean-value-hashing-method)  
+* [http://commonsmachinery.se/2014/09/digital-image-matching-part-1-hashing/](http://commonsmachinery.se/2014/09/digital-image-matching-part-1-hashing/)
