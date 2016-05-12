@@ -14,6 +14,9 @@ function hash(filepath, bits, format) {
   if (bits % 4 !== 0) throw new Error('Invalid bitlength');
 
   return new Promise((resolve, reject) => {
+    if (Buffer.isBuffer(filepath)) {
+      return resolve(filepath);
+    }
 
     fs.readFile(filepath, (err, content) => {
       if (err) return reject(err);
