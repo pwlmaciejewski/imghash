@@ -90,3 +90,11 @@ it('should expose hexToBinary', function() {
 it('should expose binaryToHex', function() {
   assert.equal(imghash.binaryToHex('1000001111000011110100111000000111000011100010011000010110100101'), '83c3d381c38985a5');
 });
+
+it('should accept Buffer input', function() {
+  const buffer = fs.readFileSync(__dirname + '/files/absolut1');
+  const hash = imghash.hash(buffer);
+  return hash.then(res => {
+    assert.isNotNull(res);
+  });
+});
