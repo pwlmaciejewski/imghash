@@ -19,6 +19,25 @@ it('should create hash for png', function() {
     });
 });
 
+it('should create hash for bmp', function() {
+  return imghash
+    .hash(__dirname + '/files/castle1.bmp')
+    .then((hash) => {
+      assert.ok(hash);
+    });
+});
+
+it('should create close hashes for the same image but in a diffrent format', function() {
+  const h1 = imghash.hash(__dirname + '/files/castle1.png');
+  const h2 = imghash.hash(__dirname + '/files/castle1.bmp');
+  return Promise
+    .all([h1, h2])
+    .then((res) => {
+      var dist = hdist(res[0], res[1]);
+      assert.isBelow(dist, 20);
+    });
+});
+
 it('should create same hashes the same images', function() {
   const h1 = imghash.hash(__dirname + '/files/castle1.png');
   const h2 = imghash.hash(__dirname + '/files/castle2.png');

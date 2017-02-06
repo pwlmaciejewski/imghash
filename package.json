@@ -23,7 +23,7 @@
     "url": "https://github.com/pwlmaciejewski/imghash/issues"
   },
   "engines": {
-    "node":  ">=4.x.x"
+    "node": ">=4.x.x"
   },
   "homepage": "https://github.com/pwlmaciejewski/imghash#readme",
   "devDependencies": {
@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "blockhash": "^0.2.0",
+    "bmp-js": "0.0.3",
     "image-type": "^2.1.0",
     "jpeg-js": "^0.1.1",
     "png-js": "^0.1.1"

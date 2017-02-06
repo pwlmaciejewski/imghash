@@ -4,6 +4,7 @@ const imageType = require('image-type');
 const fs = require('fs');
 const jpeg = require('jpeg-js');
 const PNG = require('png-js');
+const bmp = require("bmp-js");
 const blockhash = require('blockhash');
 
 function hash(filepath, bits, format) {
@@ -25,6 +26,10 @@ function hash(filepath, bits, format) {
   })
   .then((fdata) => {
     const ftype = imageType(fdata);
+
+    if (ftype.mime === 'image/bmp') {
+      return bmp.decode(fdata);
+    }
 
     if (ftype.mime === 'image/jpeg') {
       return jpeg.decode(fdata);
