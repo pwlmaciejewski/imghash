@@ -1,6 +1,6 @@
 {
   "name": "imghash",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Image perceptual hash calculation for node",
   "main": "index.js",
   "scripts": {
