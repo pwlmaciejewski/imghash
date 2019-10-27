@@ -3,7 +3,7 @@
 const imageType = require('image-type');
 const fs = require('fs');
 const jpeg = require('jpeg-js');
-const PNG = require('png-js');
+const PNG = require('pngjs').PNG;
 const bmp = require("bmp-js");
 const blockhash = require('blockhash');
 
@@ -37,12 +37,11 @@ function hash(filepath, bits, format) {
 
     if (ftype.mime === 'image/png') {
       return new Promise((resolve, reject) => {
-        let png = new PNG(fdata);
-        png.decode((pixels) => {
+        new PNG().parse(fdata, (err, data) => {
           resolve({
-            width: png.width,
-            height: png.height,
-            data: pixels
+            width: data.width,
+            height: data.height,
+            data: [...data.data]
           });
         });
       });
