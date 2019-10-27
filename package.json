@@ -23,7 +23,7 @@
     "url": "https://github.com/pwlmaciejewski/imghash/issues"
   },
   "engines": {
-    "node": ">=4.x.x"
+    "node": ">=8.x.x"
   },
   "homepage": "https://github.com/pwlmaciejewski/imghash#readme",
   "devDependencies": {
