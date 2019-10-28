@@ -41,7 +41,7 @@ function hash(filepath, bits, format) {
           resolve({
             width: data.width,
             height: data.height,
-            data: [...data.data]
+            data: data.data
           });
         });
       });
