@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/pwlmaciejewski/imghash#readme",
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.2.0",
     "hamming-distance": "^1.0.0",
     "mocha": "^2.4.5"
   },
