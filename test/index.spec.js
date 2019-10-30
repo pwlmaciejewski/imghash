@@ -1,6 +1,7 @@
-const imghash = require('../index');
 const fs = require('fs');
-const hdist = require('hamming-distance');
+const leven = require('leven');
+
+const imghash = require('../index');
 
 it.each([
   ['jpeg', '/files/absolut1'],
@@ -14,8 +15,8 @@ it.each([
 it('should create close hashes for the same image but in a different format', async () => {
   const h1 = await imghash.hash(__dirname + '/files/castle1.png');
   const h2 = await imghash.hash(__dirname + '/files/castle1.bmp');
-  const dist = hdist(h1[0], h2[1]);
-  expect(dist).toBeLessThan(20);
+  const dist = leven(h1, h2);
+  expect(dist).toBeLessThan(12);
 });
 
 it('should create same hashes the same images', async () => {
@@ -27,15 +28,16 @@ it('should create same hashes the same images', async () => {
 it('should create different hashes different images', async () => {
   const h1 = await imghash.hash(__dirname + '/files/castle1.png');
   const h2 = await imghash.hash(__dirname + '/files/absolut1');
-  const dist = hdist(h1[0], h2[1]);
-  expect(dist).toBeLessThan(20);
+  const dist = leven(h1, h2);
+  expect(dist).toBeGreaterThan(12);
 });
 
 it('should create close hashes similar images', async () => {
   const h1 = await imghash.hash(__dirname + '/files/absolut2');
   const h2 = await imghash.hash(__dirname + '/files/absolut1');
-  const dist = hdist(h1[0], h2[1]);
-  expect(dist).toBeLessThan(20);
+  const dist = leven(h1, h2);
+  expect(dist).not.toBe(0);
+  expect(dist).toBeLessThan(12);
 });
 
 it('should support binary output', async () => {

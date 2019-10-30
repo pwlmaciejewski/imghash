@@ -27,15 +27,15 @@
   },
   "homepage": "https://github.com/pwlmaciejewski/imghash#readme",
   "devDependencies": {
-    "hamming-distance": "^1.0.0",
     "jest": "^24.9.0",
-    "png-js": "^0.1.1"
+    "leven": "^3.1.0"
   },
   "dependencies": {
     "blockhash": "^0.2.0",
     "bmp-js": "0.1.0",
     "image-type": "^2.1.0",
     "jpeg-js": "^0.1.1",
+    "png-js": "^0.1.1",
     "pngjs": "^3.4.0"
   }
 }
