@@ -28,11 +28,13 @@ imghash
 
 ## Finding similar images
 
-To measure similarity between images you can use [Hamming distance](https://en.wikipedia.org/wiki/Hamming_distance) or [Levenshtein Distance](https://en.wikipedia.org/wiki/Levenshtein_distance). Here's an example of using the first one:
+To measure similarity between images you can use [Hamming distance](https://en.wikipedia.org/wiki/Hamming_distance) or [Levenshtein Distance](https://en.wikipedia.org/wiki/Levenshtein_distance). 
+
+The following example uses the latter one:
 
 ```javascript
 const imghash = require('imghash');
-const hamming = require('hamming-distance');
+const leven = require('leven');
 
 const hash1 = imghash.hash('./img1');
 const hash2 = imghash.hash('./img2');
@@ -40,9 +42,9 @@ const hash2 = imghash.hash('./img2');
 Promise
   .all([hash1, hash2])
   .then((results) => {
-    const dist = hamming(results[0], results[1]);
+    const dist = leven(results[0], results[1]);
     console.log(`Distance between images is: ${dist}`);
-    if (dist <= 20) {
+    if (dist <= 12) {
       console.log('Images are similar');
     } else {
       console.log('Images are NOT similar');
@@ -62,7 +64,7 @@ Parameters:
 * `bits` (optional) - hash length [default: `8`]
 * `format` (optional) - output format [default: `hex`]
 
-===
+---
 
 ##### `.hashRaw(data, bits)`
 
@@ -73,7 +75,7 @@ Parameters:
 * `data` - image data descriptor in form `{ width: [width], height: [height], data: [decoded image pixels] }`
 * `bits` - hash length
 
-===
+---
 
 ##### `.hexToBinary(s)`
 
@@ -83,8 +85,7 @@ Parameters:
 
 * `s` - binary hash string eg. `1000100010000010`
 
-===
-
+---
 
 ##### `.binaryToHex(s)`
 
