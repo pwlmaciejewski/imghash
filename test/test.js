@@ -80,6 +80,19 @@ it('should support binary output', function() {
     });
 });
 
+/**
+ * pngcheck shows this image to have 4-bit palette color type which png-js doesn't handle well:
+ * pngcheck test/files/Arius.png
+ * OK: test/files/Arius.png (150x200, 4-bit palette, non-interlaced, 14.7%).
+ *
+ * see: https://github.com/commonsmachinery/blockhash-js/issues/7
+ */
+it('should hash palette based pngs correctly', async function() {
+  const h1 = await imghash.hash(__dirname + '/files/Arius.png', 16, 'hex');
+  const h2 = '0ff91ff10ff1000300018fd984d79ddf8e058fc30fc30fc3dfc3c3c303831783';
+  assert.equal(h1, h2);
+});
+
 it('should support validate output format', function() {
   assert.throws(() => {
     imghash.hash(__dirname + '/files/absolut1', null, 'foo');
