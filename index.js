@@ -1,11 +1,8 @@
 'use strict';
 
-const imageType = require('image-type');
 const fs = require('fs');
-const jpeg = require('jpeg-js');
-const PNG = require('pngjs').PNG;
-const bmp = require("bmp-js");
 const blockhash = require('blockhash');
+const { imageFromBuffer, getImageData } = require('@canvas/image');
 
 function hash(filepath, bits, format) {
   format = format || 'hex';
@@ -16,40 +13,15 @@ function hash(filepath, bits, format) {
 
   return new Promise((resolve, reject) => {
     if (Buffer.isBuffer(filepath)) {
-      return resolve(filepath);
+      return resolve(imageFromBuffer(filepath));
     }
 
     fs.readFile(filepath, (err, content) => {
       if (err) return reject(err);
-      resolve(content);
+      resolve(imageFromBuffer(content));
     });
   })
-  .then((fdata) => {
-    const ftype = imageType(fdata);
-
-    if (ftype.mime === 'image/bmp') {
-      return bmp.decode(fdata);
-    }
-
-    if (ftype.mime === 'image/jpeg') {
-      return jpeg.decode(fdata);
-    }
-
-    if (ftype.mime === 'image/png') {
-      return new Promise((resolve, reject) => {
-        new PNG().parse(fdata, (err, data) => {
-          resolve({
-            width: data.width,
-            height: data.height,
-            data: data.data
-          });
-        });
-      });
-    }
-
-    throw new Error('Unsupported image type');
-  })
-  .then((data) => hashRaw(data, bits))
+  .then((image) => hashRaw(getImageData(image), bits))
   .then((hexHash) => {
     if (format === 'hex') return hexHash;
     if (format === 'binary') return hexToBinary(hexHash);
