@@ -34,6 +34,6 @@
     "@canvas/image": "^1.0.0",
     "blockhash": "^0.2.0",
     "jpeg-js": "^0.3.6",
-    "png-js": "^0.1.1"
+    "png-js": "^1.0.0"
   }
 }
