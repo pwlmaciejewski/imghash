@@ -1,7 +1,7 @@
 "use strict";
 
 const fs = require("fs");
-const blockhash = require("blockhash");
+const blockhash = require("blockhash-core");
 const { imageFromBuffer, getImageData } = require("@canvas/image");
 
 function hash(filepath, bits, format) {
@@ -30,7 +30,7 @@ function hash(filepath, bits, format) {
 }
 
 function hashRaw(data, bits) {
-  return blockhash.blockhashData(data, bits, 2);
+  return blockhash.bmvbhash(data, bits);
 }
 
 function hexToBinary(s) {

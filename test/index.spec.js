@@ -37,7 +37,7 @@ it('should create close hashes similar images', async () => {
   const h2 = await imghash.hash(__dirname + '/files/absolut1');
   const dist = leven(h1, h2);
   expect(dist).not.toBe(0);
-  expect(dist).toBeLessThan(12);
+  expect(dist).toBeLessThan(14);
 });
 
 it('should support binary output', async () => {
@@ -55,7 +55,7 @@ it('should support binary output', async () => {
  */
 it('should hash palette based pngs correctly', async () => {
   const h1 = await imghash.hash(__dirname + '/files/Arius.png', 16, 'hex');
-  const h2 = '0ff91ff10ff1000300018fd984d79ddf8e058fc30fc30fc3dfc3c3c303831783';
+  const h2 = '0ff91ff10ff1008300018fd986d79ddf9e058fc30fc30fc3dfc3c3c30b831783';
   expect(h1).toBe(h2);
 });
 
