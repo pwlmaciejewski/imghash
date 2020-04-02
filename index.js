@@ -22,8 +22,8 @@ function hash(filepath, bits, format) {
       resolve(imageFromBuffer(content));
     });
   })
-    .then(image => hashRaw(getImageData(image), bits))
-    .then(hexHash => {
+    .then((image) => hashRaw(getImageData(image), bits))
+    .then((hexHash) => {
       if (format === "hex") return hexHash;
       if (format === "binary") return hexToBinary(hexHash);
     });
@@ -56,7 +56,7 @@ function hexToBinary(s) {
     C: "1100",
     D: "1101",
     E: "1110",
-    F: "1111"
+    F: "1111",
   };
   let ret = "";
   for (let i = 0; i < s.length; i++) {
@@ -82,7 +82,7 @@ function binaryToHex(s) {
     "1100": "c",
     "1101": "d",
     "1110": "e",
-    "1111": "f"
+    "1111": "f",
   };
   let ret = "";
   for (let i = 0; i < s.length; i += 4) {
@@ -96,5 +96,5 @@ module.exports = {
   hash,
   hashRaw,
   hexToBinary,
-  binaryToHex
+  binaryToHex,
 };
