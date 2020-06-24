@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/pwlmaciejewski/imghash#readme",
   "devDependencies": {
-    "jest": "^25.2.6",
+    "jest": "^26.1.0",
     "leven": "^3.1.0",
     "prettier": "^2.0.2"
   },
