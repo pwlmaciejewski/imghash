@@ -1,4 +1,4 @@
-# imghash ![build](https://github.com/pwlmaciejewski/imghash/workflows/Node.js%20CI/badge.svg) [![npm version](https://badge.fury.io/js/imghash.png)](https://badge.fury.io/js/imghash)
+# imghash ![build](https://github.com/pwlmaciejewski/imghash/workflows/Node.js%20CI/badge.svg) ![npm](https://img.shields.io/npm/v/imghash) ![NPM](https://img.shields.io/npm/l/imghash)
 Promise-based image perceptual hash calculation for node.
 
 ## Installation
