@@ -7,6 +7,8 @@ Promise-based image perceptual hash calculation for node.
 npm install imghash
 ```
 
+:information_source: You can find the command-line interface [here](https://github.com/pwlmaciejewski/imghash-cli).
+
 ## Basic usage
 
 ```javascript
