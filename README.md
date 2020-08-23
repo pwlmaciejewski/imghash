@@ -1,4 +1,4 @@
-# imghash [![Build Status](https://secure.travis-ci.org/pwlmaciejewski/imghash.png?branch=master)](http://travis-ci.org/pwlmaciejewski/imghash) [![npm version](https://badge.fury.io/js/imghash.png)](https://badge.fury.io/js/imghash)
+# imghash ![build](https://github.com/pwlmaciejewski/imghash/workflows/Node.js%20CI/badge.svg) [![npm version](https://badge.fury.io/js/imghash.png)](https://badge.fury.io/js/imghash)
 Promise-based image perceptual hash calculation for node.
 
 ## Installation
