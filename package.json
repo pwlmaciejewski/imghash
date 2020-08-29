@@ -4,8 +4,8 @@
   "description": "Image perceptual hash calculation for node",
   "main": "index.js",
   "scripts": {
-    "prettier": "prettier --write index.js",
-    "test": "prettier --check index.js && jest"
+    "lint": "eslint index.js test/index.spec.js",
+    "test": "npm run lint && jest"
   },
   "repository": {
     "type": "git",
@@ -28,9 +28,12 @@
   },
   "homepage": "https://github.com/pwlmaciejewski/imghash#readme",
   "devDependencies": {
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
     "jest": "^26.1.0",
     "leven": "^3.1.0",
-    "prettier": "^2.0.2"
+    "prettier": "^2.0.2",
+    "eslint-plugin-prettier": "^3.1.4"
   },
   "dependencies": {
     "@canvas/image": "^1.0.0",
