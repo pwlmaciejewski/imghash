@@ -3,9 +3,8 @@
 const fs = require("fs");
 const blockhash = require("blockhash-core");
 const { imageFromBuffer, getImageData } = require("@canvas/image");
-const imageType = require('image-type')
-const jpeg = require('jpeg-js');
-const { resolve } = require("path");
+const imageType = require("image-type");
+const jpeg = require("jpeg-js");
 
 function hash(filepath, bits, format) {
   format = format || "hex";
@@ -25,25 +24,25 @@ function hash(filepath, bits, format) {
       resolve(content);
     });
   })
-  .then((fdata) => {
-    return imageFromBuffer(fdata)
-    .then((image) => {
-      return getImageData(image);
+    .then((fdata) => {
+      return imageFromBuffer(fdata)
+        .then((image) => {
+          return getImageData(image);
+        })
+        .catch((err) => {
+          const ftype = imageType(fdata);
+          if (ftype.mime === "image/jpeg") {
+            return jpeg.decode(fdata, { maxMemoryUsageInMB: 1024 });
+          } else {
+            throw err;
+          }
+        });
     })
-    .catch((err) => {
-      const ftype = imageType(fdata);
-      if (ftype.mime === 'image/jpeg') {
-        return jpeg.decode(fdata, {maxMemoryUsageInMB : 1024});
-      } else {
-        throw err;
-      }
-    })
-  })
-  .then((data) => hashRaw(data, bits))
-  .then((hexHash) => {
-    if (format === "hex") return hexHash;
-    if (format === "binary") return hexToBinary(hexHash);
-  });
+    .then((data) => hashRaw(data, bits))
+    .then((hexHash) => {
+      if (format === "hex") return hexHash;
+      if (format === "binary") return hexToBinary(hexHash);
+    });
 }
 
 function hashRaw(data, bits) {
