@@ -67,12 +67,13 @@ it("should hash palette based pngs correctly", async () => {
  * see: https://github.com/pwlmaciejewski/imghash/issues/21
  */
 it("should not throw longjmp error", () => {
-  expect(async () => {
-    const h1 = await imghash.hash(__dirname + "/files/longjmperror.jpg", 8);
-    const h2 = await imghash.hash(__dirname + "/files/longjmperror.jpg", 16);
-    expect(h1.length).toBe(16);
-    expect(h1.length * 4).toBe(h2.length);
-  }).not.toThrow();
+  expect(
+    imghash.hash(__dirname + "/files/longjmperror.jpg", 8)
+  ).resolves.toHaveLength(16);
+
+  expect(
+    imghash.hash(__dirname + "/files/longjmperror.jpg", 16)
+  ).resolves.toHaveLength(64);
 });
 
 it("should support validate output format", () => {
