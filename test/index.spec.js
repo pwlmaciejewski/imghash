@@ -59,6 +59,20 @@ it("should hash palette based pngs correctly", async () => {
   expect(h1).toBe(h2);
 });
 
+/**
+ * For some jpeg images, cwasm-jpeg-turbo throws longjmp error due to a bug in WebAssembly.
+ * Added a workaround to use alternate libraries to read such images.
+ *
+ * see: https://github.com/LinusU/cwasm-jpeg-turbo/issues/2
+ * see: https://github.com/pwlmaciejewski/imghash/issues/21
+ */
+it("should not throw longjmp error", async () => {
+  const h1 = await imghash.hash(__dirname + "/files/longjmperror.jpg", 8);
+  const h2 = await imghash.hash(__dirname + "/files/longjmperror.jpg", 16);
+  expect(h1).toHaveLength(16);
+  expect(h2).toHaveLength(64);
+});
+
 it("should support validate output format", () => {
   expect(() => {
     imghash.hash(__dirname + "/files/absolut1", null, "foo");
