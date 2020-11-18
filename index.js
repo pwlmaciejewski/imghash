@@ -26,8 +26,12 @@ async function hash(filepath, bits = 8, format = "hex") {
       throw err
     }
   }
-  const dataHash = blockhash.bmvbhash(data, bits)
+  const dataHash = 
   return format === "hex" ? dataHash : hexToBinary(dataHash)
+}
+
+function hashRaw(data, bits) {
+  return blockhash.bmvbhash(data, bits);
 }
 
 function hexToBinary(str) {
