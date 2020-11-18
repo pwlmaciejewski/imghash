@@ -14,18 +14,12 @@ npm install imghash
 ```javascript
 const imghash = require('imghash');
 
-imghash
-  .hash('path/to/file')
-  .then((hash) => {
-    console.log(hash); // 'f884c4d8d1193c07'
-  });
+const hash = await imghash.hash('path/to/file');
+console.log(hash); // 'f884c4d8d1193c07'
 
 // Custom hex length and result in binary
-imghash
-  .hash('path/to/file', 4, 'binary')
-  .then((hash) => {
-    console.log(hash); // '1000100010000010'
-  });
+const hash = await imghash.hash('path/to/file', 4, 'binary');
+console.log(hash); // '1000100010000010'
 ```
 
 ## Finding similar images
@@ -38,27 +32,25 @@ The following example uses the latter one:
 const imghash = require('imghash');
 const leven = require('leven');
 
-const hash1 = imghash.hash('./img1');
-const hash2 = imghash.hash('./img2');
+const results = await Promise.all([
+  imghash.hash('./img1'),
+  imghash.hash('./img2')
+])
 
-Promise
-  .all([hash1, hash2])
-  .then((results) => {
-    const dist = leven(results[0], results[1]);
-    console.log(`Distance between images is: ${dist}`);
-    if (dist <= 12) {
-      console.log('Images are similar');
-    } else {
-      console.log('Images are NOT similar');
-    }
-  });
+const dist = leven(results[0], results[1]);
+console.log(`Distance between images is: ${dist}`);
+if (dist <= 12) {
+  console.log('Images are similar');
+} else {
+  console.log('Images are NOT similar');
+}
 ```
 
 ## API
 
 ##### `.hash(filepath[, bits][, format])`
 
-Returns: ES6 `Promise`, resolved returns hash string in specified format and length (eg. `f884c4d8d1193c07`)
+Returns: An `Promise`, resolved returns hash string in specified format and length (eg. `f884c4d8d1193c07`)
 
 Parameters:
 
@@ -70,7 +62,7 @@ Parameters:
 
 ##### `.hashRaw(data, bits)`
 
-Returns: hex hash
+Returns: Hex string of hash
 
 Parameters:
 
@@ -81,21 +73,21 @@ Parameters:
 
 ##### `.hexToBinary(s)`
 
-Returns: hex string, eg. `f884c4d8d1193c07`.
+Returns: Binary string, eg. `1000100010000010`
 
 Parameters:
 
-* `s` - binary hash string eg. `1000100010000010`
+* `s` - Hex string eg. `f884c4d8d1193c07`
 
 ---
 
 ##### `.binaryToHex(s)`
 
-Returns: hex string, eg. `1000100010000010`.
+Returns: Hex string, eg. `f884c4d8d1193c07`
 
 Parameters:
 
-* `s` - hex hash string eg. `f884c4d8d1193c07`
+* `s` - binary string eg. `1000100010000010`
 
 ## Further reading
 
