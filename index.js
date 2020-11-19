@@ -17,17 +17,17 @@ async function hash(filepath, bits = 8, format = "hex") {
 
   let data;
   try {
-	data = await getImageData(await imageFromBuffer(fdata));
+    data = await getImageData(await imageFromBuffer(content));
   } catch (err) {
-	const { mime } = imageType(fdata);
+    const { mime } = imageType(content);
     if (mime === "image/jpeg") {
-      data = jpeg.decode(fdata, { maxMemoryUsageInMB: 1024 });
+      data = jpeg.decode(content, { maxMemoryUsageInMB: 1024 });
     } else {
-      throw err
+      throw err;
     }
   }
-  const dataHash = hashRaw(data, bits)
-  return format === "hex" ? dataHash : hexToBinary(dataHash)
+  const dataHash = hashRaw(data, bits);
+  return format === "hex" ? dataHash : hexToBinary(dataHash);
 }
 
 function hashRaw(data, bits) {
@@ -37,7 +37,7 @@ function hashRaw(data, bits) {
 function hexToBinary(str) {
   let ret = "";
   for (const v of str) {
-    ret += lookup.indexOf(v).toString(2)
+    ret += lookup.indexOf(v).toString(2);
   }
   return ret;
 }
