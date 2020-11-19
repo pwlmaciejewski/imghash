@@ -26,7 +26,7 @@ async function hash(filepath, bits = 8, format = "hex") {
       throw err
     }
   }
-  const dataHash = 
+  const dataHash = hashRaw(data, bits)
   return format === "hex" ? dataHash : hexToBinary(dataHash)
 }
 
