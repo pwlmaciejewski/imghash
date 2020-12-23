@@ -1,4 +1,4 @@
-const fs = require("fs/promises");
+const fs = require("fs").promises;
 const blockhash = require("blockhash-core");
 const { imageFromBuffer, getImageData } = require("@canvas/image");
 const imageType = require("image-type");
