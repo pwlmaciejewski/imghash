@@ -50,7 +50,7 @@ if (dist <= 12) {
 
 ##### `.hash(filepath[, bits][, format])`
 
-Returns: An `Promise`, resolved returns hash string in specified format and length (eg. `f884c4d8d1193c07`)
+Returns: A `Promise`, resolved returns hash string in specified format and length (eg. `f884c4d8d1193c07`)
 
 Parameters:
 
