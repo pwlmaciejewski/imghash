@@ -36,7 +36,7 @@ function hashRaw(data, bits) {
 function hexToBinary(str) {
   let ret = "";
   for (const v of str) {
-    ret += parseInt(v, 16).toString(2);
+    ret += parseInt(v, 16).toString(2).padStart(4, 0);
   }
   return ret;
 }
@@ -44,7 +44,7 @@ function hexToBinary(str) {
 function binaryToHex(str) {
   let ret = "";
   for (let i = 0; i < str.length; i += 4) {
-    ret += parseInt(str.slice(i, i + 4), 2).toString(16);
+    ret += parseInt(str.slice(i, i + 4), 2).toString(16).padStart(2, 0);
   }
   return ret;
 }
