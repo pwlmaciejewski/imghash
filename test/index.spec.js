@@ -41,8 +41,8 @@ it("should create close hashes similar images", async () => {
 });
 
 it("should support binary output", async () => {
-  const h1 = imghash.hash(__dirname + "/files/absolut1", null, "hex");
-  const h2 = imghash.hash(__dirname + "/files/absolut1", null, "binary");
+  const h1 = await imghash.hash(__dirname + "/files/absolut1", null, "hex");
+  const h2 = await imghash.hash(__dirname + "/files/absolut1", null, "binary");
   expect(h1).not.toBe(h2);
 });
 
@@ -74,9 +74,7 @@ it("should not throw longjmp error", async () => {
 });
 
 it("should support validate output format", () => {
-  expect(() => {
-    imghash.hash(__dirname + "/files/absolut1", null, "foo");
-  }).toThrow();
+  expect(imghash.hash(__dirname + "/files/absolut1", null, "foo")).rejects();
 });
 
 it("should support variable bits length", async () => {
@@ -86,9 +84,7 @@ it("should support variable bits length", async () => {
 });
 
 it("should validate bit lengths", function () {
-  expect(() => {
-    imghash.hash(__dirname + "/files/absolut1", 10);
-  }).toThrow();
+  expect(imghash.hash(__dirname + "/files/absolut1", 10)).rejects();
 });
 
 it("should expose hexToBinary", () => {
