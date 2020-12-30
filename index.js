@@ -21,7 +21,8 @@ async function hash(filepath, bits = 8, format = "hex") {
     const { mime } = imageType(content);
     if (mime === "image/jpeg") {
       data = jpeg.decode(content, { maxMemoryUsageInMB: 1024 });
-    } else {
+    }
+    if (data === undefined) {
       throw err;
     }
   }
