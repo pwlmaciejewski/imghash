@@ -73,10 +73,10 @@ it("should not throw longjmp error", async () => {
   expect(h2).toHaveLength(64);
 });
 
-it("should support validate output format", async () => {
+it("should validate output format", async () => {
   await expect(
     imghash.hash(__dirname + "/files/absolut1", null, "foo")
-  ).resolves.toBeDefined();
+  ).rejects.toBeDefined();
 });
 
 it("should support variable bits length", async () => {
