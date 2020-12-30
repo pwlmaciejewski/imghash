@@ -3,10 +3,10 @@ const blockhash = require("blockhash-core");
 const { imageFromBuffer, getImageData } = require("@canvas/image");
 const imageType = require("image-type");
 const jpeg = require("jpeg-js");
-const lookup = "0123456789abcdefABCDEF";
 
 async function hash(filepath, bits = 8, format = "hex") {
-  if (format !== "hex" && format !== "binary") throw new Error("Unsupported format");
+  if (format !== "hex" && format !== "binary")
+    throw new Error("Unsupported format");
 
   if (bits % 4 !== 0) throw new Error("Invalid bitlength");
 
@@ -36,7 +36,7 @@ function hashRaw(data, bits) {
 function hexToBinary(str) {
   let ret = "";
   for (const v of str) {
-    ret += lookup.indexOf(v).toString(2);
+    ret += parseInt(v, 16).toString(2);
   }
   return ret;
 }
@@ -44,7 +44,7 @@ function hexToBinary(str) {
 function binaryToHex(str) {
   let ret = "";
   for (let i = 0; i < str.length; i += 4) {
-    ret += lookup[parseInt(str.slice(i, i + 4), 2)];
+    ret += parseInt(str.slice(i, i + 4), 2).toString(16);
   }
   return ret;
 }
