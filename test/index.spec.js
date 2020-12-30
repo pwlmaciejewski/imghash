@@ -73,8 +73,9 @@ it("should not throw longjmp error", async () => {
   expect(h2).toHaveLength(64);
 });
 
-it("should support validate output format", () => {
-  expect(imghash.hash(__dirname + "/files/absolut1", null, "foo")).resolves;
+it("should support validate output format", async () => {
+  expect.assertions(1);
+  await expect(imghash.hash(__dirname + "/files/absolut1", null, "foo")).resolves;
 });
 
 it("should support variable bits length", async () => {
@@ -83,8 +84,9 @@ it("should support variable bits length", async () => {
   expect(h1.length * 4).toBe(h2.length);
 });
 
-it("should validate bit lengths", function () {
-  expect(imghash.hash(__dirname + "/files/absolut1", 10)).rejects;
+it("should validate bit lengths", async () => {
+  expect.assertions(1);
+  await expect(imghash.hash(__dirname + "/files/absolut1", 10)).rejects;
 });
 
 it("should expose hexToBinary", () => {
