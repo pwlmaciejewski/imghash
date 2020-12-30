@@ -44,7 +44,9 @@ function hexToBinary(str) {
 function binaryToHex(str) {
   let ret = "";
   for (let i = 0; i < str.length; i += 4) {
-    ret += parseInt(str.slice(i, i + 4), 2).toString(16).padStart(2, 0);
+    ret += parseInt(str.slice(i, i + 4), 2)
+      .toString(16)
+      .padStart(2, 0);
   }
   return ret;
 }
