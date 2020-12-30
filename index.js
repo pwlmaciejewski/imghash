@@ -1,10 +1,12 @@
 const fs = require("fs").promises;
 const { bmvbhash } = require("blockhash-core");
 const { imageFromBuffer, getImageData } = require("@canvas/image");
+const imageType = require("image-type");
+const jpeg = require("jpeg-js");
 
 async function hash(filepath, bits = 8, format = "hex") {
   if (format !== "hex" && format !== "binary")
-    throw new Error("Unsupported format");
+    throw new Error(`Unsupported format "${format}"`);
 
   if (bits % 4 !== 0) throw new Error("Invalid bitlength");
 
@@ -12,7 +14,17 @@ async function hash(filepath, bits = 8, format = "hex") {
     ? filepath
     : await fs.readFile(filepath);
 
-  const data = await getImageData(await imageFromBuffer(content));
+  let data;
+  try {
+    data = await getImageData(await imageFromBuffer(content));
+  } catch (err) {
+    const { mime } = imageType(content);
+    if (mime === "image/jpeg") {
+      data = jpeg.decode(content, { maxMemoryUsageInMB: 1024 });
+    } else {
+      throw err;
+    }
+  }
   const dataHash = bmvbhash(data, bits);
   return format === "hex" ? dataHash : hexToBinary(dataHash);
 }
