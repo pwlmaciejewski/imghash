@@ -6,8 +6,7 @@ const jpeg = require("jpeg-js");
 const lookup = "0123456789abcdefABCDEF";
 
 async function hash(filepath, bits = 8, format = "hex") {
-  if (format !== "hex" && format !== "binary")
-    throw new Error("Unsupported format");
+  if (format !== "hex" && format !== "binary") throw new Error("Unsupported format");
 
   if (bits % 4 !== 0) throw new Error("Invalid bitlength");
 
