@@ -11,7 +11,7 @@ async function hash(filepath, bits = 8, format = "hex") {
   const content = Buffer.isBuffer(filepath)
     ? filepath
     : await fs.readFile(filepath);
-  
+
   const data = await getImageData(await imageFromBuffer(content));
   const dataHash = bmvbhash(data, bits);
   return format === "hex" ? dataHash : hexToBinary(dataHash);
