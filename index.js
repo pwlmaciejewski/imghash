@@ -1,8 +1,6 @@
 const fs = require("fs").promises;
-const blockhash = require("blockhash-core");
+const { bmvbhash } = require("blockhash-core");
 const { imageFromBuffer, getImageData } = require("@canvas/image");
-const imageType = require("image-type");
-const jpeg = require("jpeg-js");
 
 async function hash(filepath, bits = 8, format = "hex") {
   if (format !== "hex" && format !== "binary")
@@ -13,24 +11,14 @@ async function hash(filepath, bits = 8, format = "hex") {
   const content = Buffer.isBuffer(filepath)
     ? filepath
     : await fs.readFile(filepath);
-
-  let data;
-  try {
-    data = await getImageData(await imageFromBuffer(content));
-  } catch (err) {
-    const { mime } = imageType(content);
-    if (mime === "image/jpeg") {
-      data = jpeg.decode(content, { maxMemoryUsageInMB: 1024 });
-    } else {
-      throw err;
-    }
-  }
-  const dataHash = hashRaw(data, bits);
+  
+  const data = await getImageData(await imageFromBuffer(content));
+  const dataHash = bmvbhash(data, bits);
   return format === "hex" ? dataHash : hexToBinary(dataHash);
 }
 
 function hashRaw(data, bits) {
-  return blockhash.bmvbhash(data, bits);
+  return bmvbhash(data, bits);
 }
 
 function hexToBinary(str) {
