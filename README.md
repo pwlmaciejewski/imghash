@@ -11,21 +11,15 @@ npm install imghash
 
 ## Basic usage
 
-```javascript
-const imghash = require('imghash');
+```js
+const imghash = require("imghash");
 
-imghash
-  .hash('path/to/file')
-  .then((hash) => {
-    console.log(hash); // 'f884c4d8d1193c07'
-  });
+const hash1 = await imghash.hash("./path/to/file");
+console.log(hash1);  // "f884c4d8d1193c07"
 
 // Custom hex length and result in binary
-imghash
-  .hash('path/to/file', 4, 'binary')
-  .then((hash) => {
-    console.log(hash); // '1000100010000010'
-  });
+const hash2 = await imghash.hash("./path/to/file", 4, "binary");
+console.log(hash2);  // "1000100010000010"
 ```
 
 ## Finding similar images
@@ -34,24 +28,20 @@ To measure similarity between images you can use [Hamming distance](https://en.w
 
 The following example uses the latter one:
 
-```javascript
-const imghash = require('imghash');
-const leven = require('leven');
+```js
+const imghash = require("imghash");
+const leven = require("leven");
 
-const hash1 = imghash.hash('./img1');
-const hash2 = imghash.hash('./img2');
+const hash1 = await imghash.hash("./img1");
+const hash2 = await imghash.hash("./img2");
 
-Promise
-  .all([hash1, hash2])
-  .then((results) => {
-    const dist = leven(results[0], results[1]);
-    console.log(`Distance between images is: ${dist}`);
-    if (dist <= 12) {
-      console.log('Images are similar');
-    } else {
-      console.log('Images are NOT similar');
-    }
-  });
+const distance = leven(hash1, hash2);
+console.log(`Distance between images is: ${distance}`);
+if (distance <= 12) {
+  console.log("Images are similar");
+} else {
+  console.log("Images are NOT similar");
+}
 ```
 
 ## API
