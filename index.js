@@ -6,15 +6,20 @@ const { imageFromBuffer, getImageData } = require("@canvas/image");
 const imageType = require("image-type");
 const jpeg = require("jpeg-js");
 
-function hash(filepath, bits, format) {
+const JPEG_MAX_MEMORY_USAGE_MB = 1024;
+
+async function hash(filepath, bits, format) {
   format = format || "hex";
-  if (format !== "hex" && format !== "binary")
-    throw new Error("Unsupported format");
+  if (format !== "hex" && format !== "binary") {
+    throw new Error(`Unsupported format: ${format}`);
+  }
 
   bits = bits || 8;
-  if (bits % 4 !== 0) throw new Error("Invalid bitlength");
+  if (bits % 4 !== 0) {
+    throw new Error(`Invalid bit-length: ${bits}`);
+  }
 
-  return new Promise((resolve, reject) => {
+  const fileData = await new Promise((resolve, reject) => {
     if (Buffer.isBuffer(filepath)) {
       return resolve(filepath);
     }
@@ -23,26 +28,27 @@ function hash(filepath, bits, format) {
       if (err) return reject(err);
       resolve(content);
     });
-  })
-    .then((fdata) => {
-      return imageFromBuffer(fdata)
-        .then((image) => {
-          return getImageData(image);
-        })
-        .catch((err) => {
-          const ftype = imageType(fdata);
-          if (ftype.mime === "image/jpeg") {
-            return jpeg.decode(fdata, { maxMemoryUsageInMB: 1024 });
-          } else {
-            throw err;
-          }
-        });
-    })
-    .then((data) => hashRaw(data, bits))
-    .then((hexHash) => {
-      if (format === "hex") return hexHash;
-      if (format === "binary") return hexToBinary(hexHash);
-    });
+  });
+
+  let imageData;
+  try {
+    const image = await imageFromBuffer(fileData);
+    imageData = getImageData(image);
+  } catch (error) {
+    if (imageType(fileData).mime === "image/jpeg") {
+      imageData = jpeg.decode(fileData, {
+        maxMemoryUsageInMB: JPEG_MAX_MEMORY_USAGE_MB,
+      });
+    } else {
+      throw error;
+    }
+  }
+
+  const hexHash = hashRaw(imageData, bits);
+  if (format === "binary") {
+    return hexToBinary(hexHash);
+  }
+  return hexHash;
 }
 
 function hashRaw(data, bits) {
