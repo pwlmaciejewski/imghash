@@ -1,4 +1,4 @@
-# imghash ![build](https://github.com/pwlmaciejewski/imghash/workflows/Node.js%20CI/badge.svg) ![npm](https://img.shields.io/npm/v/imghash) ![NPM](https://img.shields.io/npm/l/imghash)
+# imghash ![build](https://github.com/pwlmaciejewski/imghash/workflows/Node.js%20CI/badge.svg) ![npm](https://img.shields.io/npm/v/imghash) ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/pwlmaciejewski/imghash) ![NPM](https://img.shields.io/npm/l/imghash) 
 Promise-based image perceptual hash calculation for node.
 
 ## Installation
