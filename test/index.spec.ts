@@ -1,7 +1,7 @@
-const fs = require("fs");
-const leven = require("leven");
-
-const imghash = require("../index");
+import fs from "fs";
+import leven from "leven";
+import * as imghash from "../index";
+import { describe, it, expect } from "@jest/globals";
 
 describe("imghash", () => {
   it.each([
@@ -42,8 +42,8 @@ describe("imghash", () => {
   });
 
   it("should support binary output", async () => {
-    const h1 = imghash.hash(__dirname + "/files/absolut1", null, "hex");
-    const h2 = imghash.hash(__dirname + "/files/absolut1", null, "binary");
+    const h1 = imghash.hash(__dirname + "/files/absolut1", 8, "hex");
+    const h2 = imghash.hash(__dirname + "/files/absolut1", 8, "binary");
     expect(h1).not.toBe(h2);
   });
 
@@ -77,7 +77,7 @@ describe("imghash", () => {
 
   it("should support validate output format", () => {
     return expect(
-      imghash.hash(__dirname + "/files/absolut1", null, "foo")
+      imghash.hash(__dirname + "/files/absolut1", 8, "foo")
     ).rejects.toEqual(new Error("Unsupported format: foo"));
   });
 
