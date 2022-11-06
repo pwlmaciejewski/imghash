@@ -56,7 +56,12 @@ function hashRaw(data, bits) {
 }
 
 function hexToBinary(s) {
-  return s.split('').map(hexDigit => parseInt(hexDigit, 16).toString(2)).join('')
+  return s
+    .split("")
+    .map((hexDigit) => {
+      return parseInt(hexDigit, 16).toString(2).padStart(4, "0");
+    })
+    .join("");
 }
 
 function binaryToHex(s) {
